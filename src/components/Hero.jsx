@@ -7,6 +7,8 @@ import { profileData } from "@/data/profileData";
 export default function Hero() {
   const { personal } = profileData;
 
+  const facultyText = personal.faculty;
+
   return (
     <section
       id="hero"
@@ -46,19 +48,43 @@ export default function Hero() {
           <div className="mb-7 flex items-center gap-3">
             <span className="h-px w-7 bg-emerald-400" />
 
-            <p className="eyebrow">
-              Telkom University · PKKMB 2026
-            </p>
+            <p className="eyebrow">Telkom University · PKKMB 2026</p>
           </div>
 
           {/* Name */}
           <h1 className="max-w-4xl text-[44px] font-semibold leading-[1.02] tracking-[-0.045em] text-white sm:text-6xl lg:text-[70px]">
             Arthawan Pratama
 
-            <span className="block text-neutral-500">
-              Pakurimba Azzuhud
-            </span>
+            <span className="block text-neutral-500">Pakurimba Azzuhud</span>
           </h1>
+
+          {/* Faculty typewriter */}
+          <div className="mt-4 flex min-h-7 items-center gap-2 font-mono text-[12px] uppercase tracking-[0.14em] text-emerald-400 sm:text-[13px]">
+            <span className="text-emerald-400/60">&gt;</span>
+
+            <motion.span
+              initial={{ width: 0 }}
+              animate={{ width: `${facultyText.length}ch` }}
+              transition={{
+                duration: 1.45,
+                delay: 0.45,
+                ease: "linear",
+              }}
+              className="inline-block overflow-hidden whitespace-nowrap"
+            >
+              {facultyText}
+            </motion.span>
+
+            <motion.span
+              animate={{ opacity: [1, 0, 1] }}
+              transition={{
+                duration: 0.8,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="h-4 w-[1.5px] bg-emerald-400"
+            />
+          </div>
 
           {/* Bio */}
           <p className="mt-7 max-w-2xl text-[15px] leading-7 text-neutral-300 sm:text-base sm:leading-8">
@@ -68,33 +94,21 @@ export default function Hero() {
           {/* Personal Data */}
           <div className="mt-10 grid max-w-2xl grid-cols-2 gap-x-10 gap-y-7 border-t border-white/[0.09] pt-6 sm:grid-cols-3">
             <div>
-              <p className="data-label">
-                Program Studi
-              </p>
+              <p className="data-label">Program Studi</p>
 
-              <p className="data-value">
-                {personal.studyProgram}
-              </p>
+              <p className="data-value">{personal.studyProgram}</p>
             </div>
 
             <div>
-              <p className="data-label">
-                Asal
-              </p>
+              <p className="data-label">Asal</p>
 
-              <p className="data-value">
-                {personal.origin}
-              </p>
+              <p className="data-value">{personal.origin}</p>
             </div>
 
             <div>
-              <p className="data-label">
-                Fokus
-              </p>
+              <p className="data-label">Fokus</p>
 
-              <p className="data-value">
-                Software Development
-              </p>
+              <p className="data-value">Software Development</p>
             </div>
           </div>
         </motion.div>
