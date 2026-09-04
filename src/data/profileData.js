@@ -203,7 +203,7 @@ export const profileData = {
     {
       name: "Tengku Faisya Ramadhan",
       origin: "Katingan",
-      prodi: "S1 Informatima",
+      prodi: "S1 Informatika",
       faculty: "Fakultas Informatika",
       hobby: "Ngedit Video",
       funFact: "Orangnya suka tidur",
