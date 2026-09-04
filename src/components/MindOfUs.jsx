@@ -1,98 +1,161 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Users, Sparkles, UserCheck } from "lucide-react";
+import { profileData } from "@/data/profileData";
 
-const teamMembers = [
+const memberFields = [
   {
-    name: "Arthawan Pratama P. A.",
-    role: "Developer & Lead",
-    notes: "Fokus di Web Dev & System Architecture",
-    color: "from-emerald-500/20 to-teal-500/20",
-    border: "border-emerald-500/40",
+    key: "origin",
+    label: "Asal",
   },
   {
-    name: "Teman Kelompok 1",
-    role: "Member",
-    notes: "Inisiatif tinggi & aktif berdiskusi",
-    color: "from-blue-500/20 to-cyan-500/20",
-    border: "border-blue-500/40",
+    key: "prodi",
+    label: "Program Studi",
   },
   {
-    name: "Teman Kelompok 2",
-    role: "Member",
-    notes: "Solutif & eksekusi tugas cepat",
-    color: "from-purple-500/20 to-indigo-500/20",
-    border: "border-purple-500/40",
+    key: "faculty",
+    label: "Fakultas",
   },
   {
-    name: "Teman Kelompok 3",
-    role: "Member",
-    notes: "Kreatif & komunikatif",
-    color: "from-amber-500/20 to-rose-500/20",
-    border: "border-amber-500/40",
+    key: "hobby",
+    label: "Hobi",
+  },
+  {
+    key: "funFact",
+    label: "Fun Fact",
   },
 ];
 
 export default function MindOfUs() {
-  return (
-    <section className="relative w-full py-20 px-4 md:px-12 bg-[#0a0a0a] text-white overflow-hidden">
-      
-      {/* Background Grid Section 4 */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-70 pointer-events-none" />
-      {/* Glow Neon Section 4 (Kanan Bawah) */}
-      <div className="absolute top-1/2 -right-20 -translate-y-1/2 w-[500px] h-[500px] bg-emerald-500/20 blur-[150px] rounded-full pointer-events-none" />
+  const { members } = profileData.mindOfUs;
 
-      <div className="max-w-6xl mx-auto space-y-12 relative z-10">
-        
-        {/* Section Header */}
-        <div className="text-center space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-cyan-400 text-xs font-mono">
-            <Users className="w-3.5 h-3.5" />
-            <span>Mind of Us — Kelompok PKKMB</span>
+  return (
+    <section
+      id="mindofus"
+      className="relative bg-[#090909] px-5 py-24 text-white md:px-8 md:py-32"
+    >
+      <div className="mx-auto max-w-6xl">
+        {/* HEADER */}
+        <div className="mb-16 grid gap-8 md:grid-cols-[1fr_0.7fr] md:items-end">
+          <div>
+            <p className="eyebrow">
+              04 / Mind of Us
+            </p>
+
+            <h2 className="mt-5 max-w-2xl text-4xl font-medium tracking-[-0.04em] text-neutral-100 sm:text-5xl md:text-6xl">
+              Five people,
+              <span className="block text-neutral-500">
+                different stories.
+              </span>
+            </h2>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-bold tracking-tight">
-            Dinamika & Kolaborasi Tim
-          </h2>
-          <p className="text-sm text-neutral-400 max-w-lg mx-auto">
-            Pemetaan singkat peran dan karakter anggota kelompok PKKMB Telkom University 2026.
+
+          <p className="max-w-md text-[14px] leading-7 text-neutral-400 md:justify-self-end">
+            Lima individu dengan latar belakang, minat, dan cerita yang
+            berbeda, dipertemukan dalam satu kelompok selama perjalanan
+            PKKMB Telkom University.
           </p>
         </div>
 
-        {/* Grid Members */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {teamMembers.map((member, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: idx * 0.1 }}
-              viewport={{ once: true }}
-              className={`p-6 rounded-2xl bg-gradient-to-br ${member.color} border ${member.border} backdrop-blur-md relative overflow-hidden flex flex-col justify-between`}
+        {/* DIRECTORY INFO */}
+        <div className="flex items-center justify-between border-y border-white/[0.09] py-4">
+          <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-neutral-500">
+            Group Members
+          </p>
+
+          <p className="font-mono text-[10px] text-neutral-500">
+            {String(members.length).padStart(2, "0")} PEOPLE
+          </p>
+        </div>
+
+        {/* MEMBERS */}
+        <div>
+          {members.map((member, index) => (
+            <motion.article
+              key={`${member.name}-${index}`}
+              initial={{
+                opacity: 0,
+                y: 12,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{
+                once: true,
+                amount: 0.2,
+              }}
+              transition={{
+                duration: 0.4,
+                delay: index * 0.04,
+              }}
+              className="group border-b border-white/[0.09]"
             >
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <UserCheck className="w-5 h-5 text-neutral-300" />
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-black/40 border border-white/10 text-neutral-300">
-                    {member.role}
+              <div className="grid gap-8 py-10 md:grid-cols-[80px_0.8fr_1.2fr] md:gap-10 md:py-12">
+                {/* NUMBER */}
+                <div>
+                  <span className="font-mono text-[11px] text-neutral-600 transition-colors duration-300 group-hover:text-emerald-400">
+                    {String(index + 1).padStart(2, "0")}
                   </span>
                 </div>
+
+                {/* IDENTITY */}
                 <div>
-                  <h3 className="font-bold text-neutral-100">{member.name}</h3>
-                  <p className="text-xs text-neutral-300 mt-2 leading-relaxed">
-                    {member.notes}
+                  <p className="font-mono text-[9px] uppercase tracking-[0.14em] text-neutral-600">
+                    Nama Lengkap
                   </p>
+
+                  <h3 className="mt-3 max-w-xs text-xl font-medium leading-7 tracking-[-0.02em] text-neutral-100 sm:text-2xl">
+                    {member.name}
+                  </h3>
+
+                  <p className="mt-4 max-w-xs text-[13px] leading-6 text-neutral-500">
+                    {member.origin}
+                  </p>
+                </div>
+
+                {/* INFORMATION */}
+                <div className="grid gap-x-8 gap-y-7 sm:grid-cols-2">
+                  {memberFields
+                    .filter((field) => field.key !== "origin")
+                    .map((field) => (
+                      <div key={field.key}>
+                        <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-neutral-600">
+                          {field.label}
+                        </p>
+
+                        <p className="mt-2 text-[14px] leading-6 text-neutral-300">
+                          {member[field.key]}
+                        </p>
+                      </div>
+                    ))}
                 </div>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-white/10 flex items-center gap-1.5 text-[11px] font-mono text-neutral-400">
-                <Sparkles className="w-3 h-3 text-amber-400" />
-                <span>PKKMB 2026</span>
-              </div>
-            </motion.div>
+              {/* HOVER LINE */}
+              <div className="h-px w-0 bg-emerald-400 transition-all duration-500 group-hover:w-12" />
+            </motion.article>
           ))}
         </div>
 
+        {/* FOOTER */}
+        <div className="mt-16 grid gap-6 border-t border-white/[0.09] pt-6 sm:grid-cols-2 sm:items-end">
+          <div>
+            <p className="font-mono text-[9px] uppercase tracking-[0.14em] text-neutral-600">
+              PKKMB 2026
+            </p>
+
+            <p className="mt-2 text-sm text-neutral-400">
+              Telkom University
+            </p>
+          </div>
+
+          <p className="text-sm leading-6 text-neutral-500 sm:text-right">
+            Gorwing today
+            <br />
+            Thriving tomorrow
+          </p>
+        </div>
       </div>
     </section>
   );

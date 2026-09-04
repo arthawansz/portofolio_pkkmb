@@ -1,62 +1,259 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Code2, User, Award, Brain, Users } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Menu, X } from "lucide-react";
+
+const navItems = [
+  {
+    number: "01",
+    name: "Profile",
+    href: "#hero",
+    id: "hero",
+  },
+  {
+    number: "02",
+    name: "Portfolio",
+    href: "#portfolio",
+    id: "portfolio",
+  },
+  {
+    number: "03",
+    name: "SWOT",
+    href: "#swot",
+    id: "swot",
+  },
+  {
+    number: "04",
+    name: "Mind of Us",
+    href: "#mindofus",
+    id: "mindofus",
+  },
+];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("hero");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 24);
+
+      const sections = navItems
+        .map((item) => document.getElementById(item.id))
+        .filter(Boolean);
+
+      const scrollPosition = window.scrollY + 180;
+
+      let currentSection = "hero";
+
+      sections.forEach((section) => {
+        if (section.offsetTop <= scrollPosition) {
+          currentSection = section.id;
+        }
+      });
+
+      setActiveSection(currentSection);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
-  const navItems = [
-    { name: "Profile", href: "#hero", icon: <User className="w-3.5 h-3.5" /> },
-    { name: "Portfolio", href: "#portfolio", icon: <Award className="w-3.5 h-3.5" /> },
-    { name: "SWOT", href: "#swot", icon: <Brain className="w-3.5 h-3.5" /> },
-    { name: "Mind of Us", href: "#mindofus", icon: <Users className="w-3.5 h-3.5" /> },
-  ];
+  const handleNavigation = () => {
+    setMobileMenuOpen(false);
+  };
 
   return (
-    <header className="fixed top-4 inset-x-0 z-50 flex justify-center px-4 pointer-events-none">
-      <nav
-        className={`pointer-events-auto flex items-center gap-2 sm:gap-6 px-4 py-2.5 rounded-full border transition-all duration-300 backdrop-blur-md ${
+    <>
+      <header
+        className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${
           scrolled
-            ? "bg-neutral-900/90 border-neutral-700/80 shadow-2xl shadow-emerald-500/10"
-            : "bg-neutral-900/50 border-neutral-800"
+            ? "border-white/[0.08] bg-[#090909]/90 backdrop-blur-xl"
+            : "border-transparent bg-transparent"
         }`}
       >
-        {/* Brand / Logo */}
-        <a
-          href="#hero"
-          className="flex items-center gap-2 font-mono font-bold text-xs text-emerald-400 pr-2 sm:pr-4 border-r border-neutral-800 hover:opacity-80 transition-opacity"
+        <nav
+          className={`mx-auto flex max-w-6xl items-center justify-between px-5 transition-all duration-300 md:px-8 ${
+            scrolled ? "h-[58px]" : "h-[72px]"
+          }`}
         >
-          <Code2 className="w-4 h-4" />
-          <span>ARTHA.DEV</span>
-        </a>
+          {/* =========================
+              BRAND
+          ========================== */}
+          <a
+            href="#hero"
+            onClick={handleNavigation}
+            className="group flex items-center gap-3"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-30" />
 
-        {/* Links */}
-        <div className="flex items-center gap-1 sm:gap-2">
-          {navItems.map((item, idx) => (
-            <a
-              key={idx}
-              href={item.href}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] sm:text-xs font-mono text-neutral-400 hover:text-emerald-400 hover:bg-neutral-800/60 transition-all"
-            >
-              {item.icon}
-              <span className="hidden sm:inline">{item.name}</span>
-            </a>
-          ))}
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+            </span>
+
+            <div className="flex items-baseline gap-2">
+              <span className="font-mono text-[12px] font-medium tracking-[0.16em] text-neutral-100 transition-colors group-hover:text-white">
+                ARTHA
+              </span>
+
+            </div>
+          </a>
+
+          {/* =========================
+              DESKTOP NAVIGATION
+          ========================== */}
+          <div className="hidden items-center gap-1 md:flex">
+            {navItems.map((item) => {
+              const isActive = activeSection === item.id;
+
+              return (
+                <a
+                  key={item.id}
+                  href={item.href}
+                  className="group relative px-4 py-3"
+                >
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`font-mono text-[9px] transition-colors duration-200 ${
+                        isActive
+                          ? "text-emerald-400"
+                          : "text-neutral-600 group-hover:text-neutral-500"
+                      }`}
+                    >
+                      {item.number}
+                    </span>
+
+                    <span
+                      className={`text-[13px] transition-colors duration-200 ${
+                        isActive
+                          ? "text-neutral-100"
+                          : "text-neutral-400 group-hover:text-neutral-100"
+                      }`}
+                    >
+                      {item.name}
+                    </span>
+                  </div>
+
+                  {/* Active underline */}
+                  <span
+                    className={`absolute bottom-[6px] left-4 h-px bg-emerald-400 transition-all duration-300 ${
+                      isActive
+                        ? "w-[18px] opacity-100"
+                        : "w-0 opacity-0"
+                    }`}
+                  />
+                </a>
+              );
+            })}
+          </div>
+
+          {/* =========================
+              DESKTOP RIGHT
+          ========================== */}
+          <div className="hidden items-center gap-3 md:flex">
+            <div className="h-4 w-px bg-white/[0.1]" />
+
+            <span className="font-mono text-[10px] tracking-[0.08em] text-neutral-500">
+              PKKMB 2026
+            </span>
+          </div>
+
+          {/* =========================
+              MOBILE BUTTON
+          ========================== */}
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+            aria-label="Toggle navigation"
+            aria-expanded={mobileMenuOpen}
+            className="flex h-10 w-10 items-center justify-center text-neutral-300 transition-colors hover:text-white md:hidden"
+          >
+            {mobileMenuOpen ? (
+              <X className="h-[19px] w-[19px]" />
+            ) : (
+              <Menu className="h-[19px] w-[19px]" />
+            )}
+          </button>
+        </nav>
+      </header>
+
+      {/* =============================
+          MOBILE MENU
+      ============================== */}
+      <div
+        className={`fixed inset-x-0 top-[58px] z-40 border-b border-white/[0.08] bg-[#090909]/95 px-5 backdrop-blur-xl transition-all duration-300 md:hidden ${
+          mobileMenuOpen
+            ? "visible translate-y-0 opacity-100"
+            : "invisible -translate-y-3 opacity-0"
+        }`}
+      >
+        <div className="mx-auto max-w-6xl py-5">
+          <div className="divide-y divide-white/[0.07]">
+            {navItems.map((item) => {
+              const isActive = activeSection === item.id;
+
+              return (
+                <a
+                  key={item.id}
+                  href={item.href}
+                  onClick={handleNavigation}
+                  className="group flex items-center justify-between py-4"
+                >
+                  <div className="flex items-center gap-4">
+                    <span
+                      className={`font-mono text-[10px] ${
+                        isActive
+                          ? "text-emerald-400"
+                          : "text-neutral-600"
+                      }`}
+                    >
+                      {item.number}
+                    </span>
+
+                    <span
+                      className={`text-[15px] ${
+                        isActive
+                          ? "text-white"
+                          : "text-neutral-400"
+                      }`}
+                    >
+                      {item.name}
+                    </span>
+                  </div>
+
+                  <span
+                    className={`text-sm transition-transform duration-200 group-hover:translate-x-1 ${
+                      isActive
+                        ? "text-emerald-400"
+                        : "text-neutral-600"
+                    }`}
+                  >
+                    →
+                  </span>
+                </a>
+              );
+            })}
+          </div>
+
+          <div className="mt-5 flex items-center justify-between border-t border-white/[0.08] pt-5">
+            <span className="font-mono text-[10px] text-neutral-500">
+              TELKOM UNIVERSITY
+            </span>
+
+            <span className="font-mono text-[10px] text-neutral-600">
+              2026
+            </span>
+          </div>
         </div>
-      </nav>
-    </header>
+      </div>
+    </>
   );
 }

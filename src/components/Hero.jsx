@@ -1,97 +1,209 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { profileData } from "@/data/profileData";
-import { GraduationCap, MapPin, Sparkles, Code2 } from "lucide-react";
 
 export default function Hero() {
   const { personal } = profileData;
 
   return (
-    <section className="relative w-full min-h-screen bg-[#0a0a0a] text-white flex items-center justify-center py-20 px-4 md:px-12 overflow-hidden border-b border-neutral-900">
-      
-      {/* Background Grid Section 1 */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-70 pointer-events-none" />
-      {/* Glow Neon Section 1 (Kiri Atas) */}
-      <div className="absolute -top-20 -left-20 w-[450px] h-[450px] bg-emerald-500/20 blur-[130px] rounded-full pointer-events-none" />
+    <section
+      id="hero"
+      className="relative flex min-h-screen items-center overflow-hidden border-b border-white/[0.07] bg-[#090909] px-5 pb-24 pt-28 text-white md:px-8"
+    >
+      {/* Background grid */}
+      <div className="bg-grid-pattern pointer-events-none absolute inset-0 opacity-70" />
 
-      <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+      {/* Ambient spotlight */}
+      <div className="pointer-events-none absolute inset-0">
+        {/* Emerald spotlight - left */}
+        <div className="absolute -left-36 top-[14%] h-[480px] w-[480px] rounded-full bg-emerald-400/[0.035] blur-[135px]" />
+
+        {/* Neutral spotlight - right */}
+        <div className="absolute right-[-80px] top-[18%] h-[430px] w-[430px] rounded-full bg-white/[0.018] blur-[145px]" />
+
+        {/* Soft center light */}
+        <div className="absolute left-1/2 -top-30 h-[360px] w-[720px] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center,rgba(52,211,153,0.03),transparent_100%)]" />
+
+        {/* Bottom fade */}
+        <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-[#090909] to-transparent" />
+      </div>
+
+      {/* MAIN CONTENT */}
+      <div className="relative z-10 mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-16 lg:grid-cols-12 lg:gap-16">
+        {/* LEFT */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="lg:col-span-7 space-y-6 text-center lg:text-left"
+          transition={{
+            duration: 0.55,
+            ease: "easeOut",
+          }}
+          className="lg:col-span-7"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-emerald-400 text-xs font-mono">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>PKKMB Telkom University 2026</span>
-          </div>
+          {/* Eyebrow */}
+          <div className="mb-7 flex items-center gap-3">
+            <span className="h-px w-7 bg-emerald-400" />
 
-          <div className="space-y-2">
-            <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-neutral-100">
-              {personal.fullName}
-            </h1>
-            <p className="text-lg text-emerald-400 font-mono font-medium">
-              {personal.studyProgram} — {personal.faculty}
+            <p className="eyebrow">
+              Telkom University · PKKMB 2026
             </p>
           </div>
 
-          <p className="text-sm text-neutral-400 leading-relaxed max-w-xl mx-auto lg:mx-0">
+          {/* Name */}
+          <h1 className="max-w-4xl text-[44px] font-semibold leading-[1.02] tracking-[-0.045em] text-white sm:text-6xl lg:text-[70px]">
+            Arthawan Pratama
+
+            <span className="block text-neutral-500">
+              Pakurimba Azzuhud
+            </span>
+          </h1>
+
+          {/* Bio */}
+          <p className="mt-7 max-w-2xl text-[15px] leading-7 text-neutral-300 sm:text-base sm:leading-8">
             {personal.bio}
           </p>
 
-          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs font-mono text-neutral-300 pt-2">
-            <div className="flex items-center gap-1.5 bg-neutral-900/80 px-3 py-2 rounded-lg border border-neutral-800">
-              <MapPin className="w-4 h-4 text-rose-400" />
-              <span>{personal.origin}</span>
+          {/* Personal Data */}
+          <div className="mt-10 grid max-w-2xl grid-cols-2 gap-x-10 gap-y-7 border-t border-white/[0.09] pt-6 sm:grid-cols-3">
+            <div>
+              <p className="data-label">
+                Program Studi
+              </p>
+
+              <p className="data-value">
+                {personal.studyProgram}
+              </p>
             </div>
-            <div className="flex items-center gap-1.5 bg-neutral-900/80 px-3 py-2 rounded-lg border border-neutral-800">
-              <GraduationCap className="w-4 h-4 text-amber-400" />
-              <span>SMK Telkom Makassar</span>
+
+            <div>
+              <p className="data-label">
+                Asal
+              </p>
+
+              <p className="data-value">
+                {personal.origin}
+              </p>
             </div>
-            <div className="flex items-center gap-1.5 bg-neutral-900/80 px-3 py-2 rounded-lg border border-neutral-800">
-              <Code2 className="w-4 h-4 text-cyan-400" />
-              <span>Fullstack Web Dev</span>
+
+            <div>
+              <p className="data-label">
+                Fokus
+              </p>
+
+              <p className="data-value">
+                Software Development
+              </p>
             </div>
           </div>
         </motion.div>
 
+        {/* RIGHT */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="lg:col-span-5 flex justify-center"
+          transition={{
+            duration: 0.6,
+            delay: 0.12,
+            ease: "easeOut",
+          }}
+          className="flex justify-center lg:col-span-5 lg:justify-end"
         >
-          <div className="relative w-full max-w-sm bg-neutral-900/80 border border-neutral-800 p-5 rounded-2xl shadow-2xl backdrop-blur-md">
-            <div className="relative aspect-[3/4] w-full rounded-xl overflow-hidden bg-neutral-950 border border-neutral-800 mb-4 group">
+          <div className="w-full max-w-[360px]">
+            {/* Profile Image */}
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[18px] bg-neutral-900">
               <Image
                 src="/profile.jpg"
                 alt={personal.fullName}
                 fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
                 priority
+                sizes="(max-width: 768px) 90vw, 360px"
+                className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-70" />
-              <div className="absolute bottom-3 left-3 right-3 flex justify-between items-end text-xs font-mono">
-                <span className="px-2 py-1 rounded bg-black/60 backdrop-blur-sm border border-white/10 text-emerald-400">
-                  {personal.nickname}
-                </span>
-                <span className="text-neutral-400">Class of 2026</span>
-              </div>
+
+              {/* Image gradient */}
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/25 to-transparent" />
+
+              {/* Very subtle edge lighting */}
+              <div className="pointer-events-none absolute inset-0 rounded-[18px] ring-1 ring-inset ring-white/[0.04]" />
             </div>
 
-            <div className="space-y-1 text-center">
-              <p className="text-xs font-mono text-neutral-500 uppercase tracking-widest">
-                Student ID Badge
+            {/* Image Metadata */}
+            <div className="mt-4 flex items-start justify-between gap-6">
+              <div>
+                <p className="text-sm font-medium text-neutral-200">
+                  {personal.nickname}
+                </p>
+
+                <p className="mt-1 text-xs text-neutral-500">
+                  {personal.university}
+                </p>
+              </div>
+
+              <p className="text-right font-mono text-[11px] text-neutral-500">
+                Bandung
+                <br />
+                2026
               </p>
-              <h2 className="text-sm font-bold text-neutral-200">
-                Telkom University Student
-              </h2>
             </div>
           </div>
         </motion.div>
       </div>
+
+      {/* SCROLL INDICATOR */}
+      <motion.a
+        href="#portfolio"
+        aria-label="Scroll to portfolio"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          duration: 0.6,
+          delay: 0.8,
+        }}
+        className="group absolute bottom-6 left-1/2 z-20 hidden -translate-x-1/2 flex-col items-center md:flex"
+      >
+        {/* Mouse */}
+        <motion.div
+          animate={{
+            y: [0, 4, 0],
+          }}
+          transition={{
+            duration: 1.8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="relative flex h-9 w-[22px] justify-center rounded-full border border-neutral-600 transition-colors duration-300 group-hover:border-neutral-400"
+        >
+          {/* Mouse wheel */}
+          <motion.span
+            animate={{
+              y: [6, 13, 6],
+              opacity: [1, 0.25, 1],
+            }}
+            transition={{
+              duration: 1.8,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute top-0 h-1.5 w-[2px] rounded-full bg-emerald-400"
+          />
+        </motion.div>
+
+        {/* Bottom line */}
+        <motion.div
+          animate={{
+            scaleY: [0.5, 1, 0.5],
+            opacity: [0.25, 0.7, 0.25],
+          }}
+          transition={{
+            duration: 1.8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="mt-3 h-5 w-px origin-top bg-gradient-to-b from-neutral-600 to-transparent"
+        />
+      </motion.a>
     </section>
   );
 }

@@ -2,86 +2,125 @@
 
 import { motion } from "framer-motion";
 import { profileData } from "@/data/profileData";
-import { ShieldCheck, Zap, Target, AlertTriangle } from "lucide-react";
 
 export default function SwotSection() {
   const { swot } = profileData;
 
   const items = [
     {
-      title: "Strength (Kekuatan)",
-      icon: <Zap className="w-5 h-5 text-amber-400" />,
+      label: "S",
+      title: "Strength",
+      subtitle: "Kekuatan",
       data: swot.strengths,
-      border: "hover:border-amber-500/40",
     },
     {
-      title: "Weakness (Kelemahan)",
-      icon: <AlertTriangle className="w-5 h-5 text-rose-400" />,
+      label: "W",
+      title: "Weakness",
+      subtitle: "Kelemahan",
       data: swot.weaknesses,
-      border: "hover:border-rose-500/40",
     },
     {
-      title: "Opportunity (Peluang)",
-      icon: <Target className="w-5 h-5 text-cyan-400" />,
+      label: "O",
+      title: "Opportunity",
+      subtitle: "Peluang",
       data: swot.opportunities,
-      border: "hover:border-cyan-500/40",
     },
     {
-      title: "Threat (Tantangan)",
-      icon: <ShieldCheck className="w-5 h-5 text-purple-400" />,
+      label: "T",
+      title: "Threat",
+      subtitle: "Tantangan",
       data: swot.threats,
-      border: "hover:border-purple-500/40",
     },
   ];
 
   return (
-    <section className="relative w-full bg-[#0a0a0a] text-white py-20 px-4 md:px-12 border-b border-neutral-900 overflow-hidden">
-      {/* Background Grid Section 3 */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-70 pointer-events-none" />
-      {/* Glow Neon Section 3 (Kiri Bawah) */}
-      <div className="absolute top-1/2 -left-20 -translate-y-1/2 w-[450px] h-[450px] bg-teal-500/20 blur-[130px] rounded-full pointer-events-none" />
+    <section
+      id="swot"
+      className="border-b border-white/[0.07] bg-[#090909] px-5 py-24 text-white md:px-8 md:py-32"
+    >
+      <div className="mx-auto max-w-6xl">
+        {/* HEADER */}
+        <div className="mb-16 grid gap-8 md:grid-cols-2 md:items-end">
+          <div>
+            <p className="eyebrow">
+              Personal Analysis
+            </p>
 
-      <div className="max-w-6xl mx-auto space-y-10 relative z-10">
-        <div className="text-center space-y-2">
-          <p className="text-xs font-mono text-emerald-400 tracking-wider uppercase">
-            Personal Analysis
+            <h2 className="section-title mt-5">
+              Understanding
+              <span className="block text-neutral-500">
+                where I stand.
+              </span>
+            </h2>
+          </div>
+
+          <p className="section-description md:justify-self-end">
+            Evaluasi terhadap kekuatan, kelemahan, peluang, serta
+            tantangan yang menjadi bagian dari proses pengembangan diri
+            saya.
           </p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-100">
-            Analisis Diri (SWOT)
-          </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {items.map((item, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className={`bg-neutral-900/60 border border-neutral-800 rounded-2xl p-6 transition-all duration-300 backdrop-blur-sm ${item.border}`}
+        {/* SWOT */}
+        <div className="border-t border-white/[0.09]">
+          {items.map((item, index) => (
+            <motion.article
+              key={item.label}
+              initial={{
+                opacity: 0,
+                y: 10,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{
+                once: true,
+                amount: 0.2,
+              }}
+              transition={{
+                duration: 0.35,
+              }}
+              className="grid gap-8 border-b border-white/[0.09] py-10 md:grid-cols-[100px_240px_1fr]"
             >
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2.5 rounded-xl bg-neutral-950 border border-neutral-800">
-                  {item.icon}
-                </div>
-                <h3 className="text-lg font-bold text-neutral-100">
-                  {item.title}
-                </h3>
+              {/* INDEX */}
+              <div className="flex items-start gap-3">
+                <span className="font-mono text-lg font-medium text-emerald-400">
+                  {item.label}
+                </span>
+
+                <span className="mt-1 font-mono text-xs text-neutral-600">
+                  / 0{index + 1}
+                </span>
               </div>
 
-              <ul className="space-y-3">
-                {item.data.map((point, pIdx) => (
+              {/* TITLE */}
+              <div>
+                <h3 className="text-xl font-medium text-neutral-100">
+                  {item.title}
+                </h3>
+
+                <p className="mt-2 text-sm text-neutral-500">
+                  {item.subtitle}
+                </p>
+              </div>
+
+              {/* CONTENT */}
+              <ul className="space-y-5">
+                {item.data.map((point, pointIndex) => (
                   <li
-                    key={pIdx}
-                    className="flex items-start gap-2.5 text-xs sm:text-sm text-neutral-300 leading-relaxed"
+                    key={`${item.label}-${pointIndex}`}
+                    className="flex gap-4 text-[15px] leading-7 text-neutral-300"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-neutral-600 mt-2 shrink-0" />
-                    <span>{point}</span>
+                    <span className="mt-[12px] h-1 w-1 shrink-0 rounded-full bg-neutral-500" />
+
+                    <span>
+                      {point}
+                    </span>
                   </li>
                 ))}
               </ul>
-            </motion.div>
+            </motion.article>
           ))}
         </div>
       </div>
