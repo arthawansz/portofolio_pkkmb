@@ -11,7 +11,7 @@ export const profileData = {
     schoolOrigin: "SMK Telkom Makassar",
 
     bio:
-      "Saya tumbuh dari latar Rekayasa Perangkat Lunak di SMK Telkom Makassar dan banyak belajar melalui proyek web yang saya kerjakan sendiri maupun bersama tim. Sekarang saya melanjutkan perjalanan itu di Telkom University, dengan minat pada software engineering, web development, dan bagaimana sebuah sistem dibangun dengan baik.",
+      "Saya tumbuh dari latar pendidikan Rekayasa Perangkat Lunak di SMK Telkom Makassar dan banyak belajar melalui proyek web yang saya kerjakan sendiri maupun bersama tim. Sekarang saya melanjutkan perjalanan itu di Telkom University, dengan minat pada software engineering, web development, dan bagaimana sebuah sistem dibangun dengan baik.",
   },
 
   projects: [
