@@ -29,8 +29,9 @@ export default function Hero() {
       <div className="relative z-10 mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-16 lg:grid-cols-12 lg:gap-16">
         {/* LEFT */}
         <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.35 }}
           transition={{ duration: 0.55, ease: "easeOut" }}
           className="lg:col-span-7"
         >
@@ -106,9 +107,10 @@ export default function Hero() {
 
         {/* RIGHT */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.12, ease: "easeOut" }}
+          initial={{ opacity: 0, scale: 0.97, y: 16 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.35 }}
+          transition={{ duration: 0.6, delay: 0.08, ease: "easeOut" }}
           className="flex justify-center lg:col-span-5 lg:justify-end"
         >
           <div className="w-full max-w-[360px]">
